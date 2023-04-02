@@ -15,7 +15,6 @@ let g:yadm_git_repo_path = get(g:, "yadm_git_repo_path", "~/.local/share/yadm/re
 let g:yadm_git_enabled = get(g:, "yadm_git_enabled", 1)
 
 let g:yadm_git_fugitive_enabled = get(g:, "yadm_git_fugitive_enabled", 1)
-let g:yadm_git_gitgutter_enabled = get(g:, "yadm_git_gitgutter_enabled", 1)
 let g:yadm_git_default_git_path = get(g:, "yadm_git_default_git_path", "git")
 
 function! s:yadm_check_file()
@@ -40,9 +39,6 @@ function! s:yadm_patch_plugins()
   if g:yadm_git_fugitive_enabled
     call FugitiveDetect(g:yadm_git_repo_path)
   endif
-  if g:yadm_git_gitgutter_enabled
-    let g:gitgutter_git_executable='yadm'
-  endif
   if s:yadm_git_verbose
     echo 'yadm: detected file as dotfile'
   endif
@@ -50,12 +46,6 @@ endfunction
 
 function! s:yadm_reset_plugins()
   let s:yadm_git_verbose = get(g:, "yadm_git_verbose", 0)
-  if g:yadm_git_gitgutter_enabled && g:gitgutter_git_executable == 'yadm'
-    let g:gitgutter_git_executable=g:yadm_git_default_git_path
-    if s:yadm_git_verbose
-      echo 'yadm: reset gitgutter executable path'
-    endif
-  endif
 endfunction
 
 " callback from anonymous function above, receives the exit status
